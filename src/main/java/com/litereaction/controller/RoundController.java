@@ -70,7 +70,7 @@ public class RoundController {
      * @return
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ApiOperation("Update an existing round")
+    @ApiOperation("Read an existing round")
     public ResponseEntity<Round> read(@PathVariable long id) {
         Round result = roundRepository.findOne(id);
         return new ResponseEntity<Round>(result, HttpStatus.OK);
@@ -85,8 +85,12 @@ public class RoundController {
      * @param round Round to update
      * @return updated round
      */
-    public Round update(Round round) {
-        return roundRepository.save(round);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @ApiOperation("Update an existing round")
+    public ResponseEntity<Round> update(@PathVariable long id, @RequestBody Round round) {
+
+        Round result = roundRepository.save(round);
+        return new ResponseEntity<Round>(result, HttpStatus.OK);
     }
 
 
